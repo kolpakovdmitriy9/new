@@ -16,11 +16,62 @@
 	</style>
 	<!-- copy these lines to your document head: -->
 
-	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, width=1440" />
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1.0, width=device-width" />
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:600&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:500&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-	
+
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+ 
+<script type="text/javascript">
+var alsoenlarge = true;
+
+$(function(){
+    if(isScalePossible()){
+        $('body').css({overflow:'hidden'});
+        $('#scalecontainer').css({position: 'absolute', margin: 0});
+
+        // Run scale function on start
+        scaleSite();
+        scaleSite();
+
+        // Run scale function on browser resize
+        $(window).resize(scaleSite);
+    }
+});
+
+function scaleSite()
+{
+    containerw = window.innerWidth * 0.5; /* The width of the div, currently set to half of the window's width */
+    containerh = 600; /* The maximum possible height of the div; the recommend size for this is equal to or larger than the H of the element. */
+    sitew = $('#scalecontainer').width();
+    siteh = $('#scalecontainer').height();
+    f = containerw/sitew;
+    f = containerh/siteh<f?containerh/siteh:f;
+    if(!alsoenlarge && f>1) f = 1;
+    $('#scalecontainer').css({
+        "-moz-transform"    : "scale("+f+")",
+        "-webkit-transform" : "scale("+f+")",
+        "-ms-transform"     : "scale("+f+")",
+        "-o-transform"      : "scale("+f+")",
+        "transform"         : "scale("+f+")",
+        "left"              : ((containerw-(sitew*f))/2)+"px",
+        "top"               : "0px"
+    });
+}
+
+function isScalePossible()
+{
+    can = 'MozTransform' in document.body.style;
+    if(!can) can = 'webkitTransform' in document.body.style;
+    if(!can) can = 'msTransform' in document.body.style;
+    if(!can) can = 'OTransform' in document.body.style;
+    if(!can) can = 'transform' in document.body.style;
+    if(!can) can = 'Transform' in document.body.style;
+    return can;
+}
+
+</script>
 		
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.8/lottie.min.js"></script>
 
@@ -37,7 +88,7 @@
 	<!-- copy these lines to your document: -->
 
 	<div id="lovelllas_hype_container" class="HYPE_document" style="margin:auto;position:relative;width:100%;height:100%;overflow:hidden;">
-		<script type="text/javascript" charset="utf-8" src="lovelllas.hyperesources/lovelllas_hype_generated_script.js?82733"></script>
+		<script type="text/javascript" charset="utf-8" src="lovelllas.hyperesources/lovelllas_hype_generated_script.js?2598"></script>
 	</div>
 
 	<!-- end copy -->
